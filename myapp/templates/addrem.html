@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .dark-mode body {
+            background-color: #333;
+            color: #f4f4f4;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        form input, form button {
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .dark-mode button {
+            background-color: #555;
+        }
+
+        .dark-mode button:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Student Management</h1>
+
+    
+    <form id="remStudentForm" action="{% url 'rem' %}" method="post">  
+        {% csrf_token %}      
+        <label for="studentId">Student ID:</label>
+        <input type="text" id="student_Id" name="student_Id" required>
+        <button type="submit">rem Student</button>
+    </form>
+
+    <form id="addStudentForm" action="{% url 'add' %}" method="post">
+        {% csrf_token %} 
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="age">age</label>
+        <input type="text" id="age" name="age" required>
+        <label for="cgpa">cgpa</label>
+        <input type="text" id="cgpa" name="cgpa" required step="0.01" min="0">
+        
+        <button type="submit">Add Student</button>
+    </form>
+    {% if error_message %}
+        <div>{{ error_message }}</div>
+    {% endif %}
+</body>
+</html>

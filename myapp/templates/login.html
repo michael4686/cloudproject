@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    
+    <div class="from0">
+    <div class="from1">
+    <div class="from2">
+    <div class="from3">
+    <div class="from4">
+    <form action="{% url 'login' %}" method="post">  
+    {% csrf_token %}  
+    <div class="from">
+        <h2> Login </h2>
+        <div class="inputbox">
+            <input type="text" required="required"  name="name">
+            <span>User name</span>
+            <i></i>
+        </div>
+        <div class="inputbox">
+            <input type="password" required="required" name="pass">
+            <span>password</span>
+            <i></i>
+        </div>
+        <input type="submit" value="sing in">
+        {% if error_message %}
+            <div class="error"><h>{{ error_message }}</h></div>
+        {% endif %}
+        </div>
+
+    </div>
+    </form>
+</div></div></div></div></div>
+
+        
+
+</div>
+</body>
+</html>

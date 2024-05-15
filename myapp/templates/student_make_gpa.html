@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {%load static%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marks</title>
+    <style>
+        /* Basic table styling */
+        .navbar{
+        width: 85%; 
+        margin: auto;
+        padding: 35px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: white;
+        }
+        .logo  {
+            width: 120px;
+            cursor: pointer;
+
+        }
+        .navbar ul a{
+            list-style: none;
+            display: inline-block;
+            margin: 0 20px ;
+            position: relative;
+            text-decoration: none;
+            color: var(--text-color);
+            text-transform: uppercase;
+
+        }
+
+        .navbar ul a::after {
+            content: '';
+            height: 3px;
+            width: 0;
+            background: var(--main-color); /* You need to define the --bg-color variable */
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            transition:  0.5s ; /* You're missing the property for the transition */
+        }
+
+        .navbar ul a:hover::after{
+            width: 100%;
+
+        }
+        body {
+            background-color: #131313;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        h1 {
+            color: azure;
+        }
+
+        th, td {
+            border: 1px solid wheat;
+            padding: 8px;
+            text-align: center;
+            color: aliceblue;
+        }
+
+        th {
+            background-color: transparent;
+        }
+
+        /* Search bar styles */
+        .search-container {
+            
+            top: 20px;
+            right: 20px;
+        }
+
+        .search-container input[type="text"] {
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .search-container button {
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="{% static 'img/logo-1.png' %}" class="logo">
+        <ul>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="#about">about</a>
+            <a href="#team">team</a>
+        </ul>
+    </div>  
+  
+
+    <!-- Search container -->
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Enter Student ID...">
+        <button onclick="searchStudent()">Search</button>
+    </div>
+    <h1>Student Marks</h1>
+    <table id="studentTable">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Student ID</th>
+                <th>AGE</th>
+                <th>cgpa</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            {% for row in student_data %}
+            <tr>
+                <td>{{ row.name }}</td>
+                <td>{{ row.id }}</td>
+                <td>{{ row.age }}</td>
+                <td>{{ row.cgpa }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        
+    
+        function searchStudent() {
+    // Declare variables
+    var input, filter, table, tr, tdName, tdID, i, txtValueName, txtValueID;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("studentTable");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows
+    for (i = 0; i < tr.length; i++) {
+        tdName = tr[i].getElementsByTagName("td")[0]; // Column for student name
+        tdID = tr[i].getElementsByTagName("td")[1]; // Column for student ID
+        if (tdName && tdID) {
+            txtValueName = tdName.textContent || tdName.innerText;
+            txtValueID = tdID.textContent || tdID.innerText;
+            // Check if either name or ID matches the search query
+            if (txtValueName.toUpperCase().indexOf(filter) > -1 || txtValueID.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
+
+    </script> 
+</body>
+</html>
